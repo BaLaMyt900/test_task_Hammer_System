@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Авторизация</title>
+</head>
+<body>
+    <h3>Добрый день! Для продолжения введите номер</h3>
+    <form action="" method="post">{% csrf_token %}
+        <label for="phone_id">Номер телефона</label>
+        <input id="phone_id" name="phone" {% if phone %} value="{{ phone }}" {% endif %} placeholder="7 *** *** ** **" type="tel">
+        <button type="submit">Вход\Регистрация</button>
+        {% if error %}
+            <h4 style="color: #970b23">{{ error }}</h4>
+        {% endif %}
+    </form>
+</body>
+</html>
