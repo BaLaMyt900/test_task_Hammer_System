@@ -81,8 +81,9 @@ class StartPage(APIView):
                     profile = {'phone': user.phone, 'user_referral_code': user.user_referral_code}
                     return Response({'status': 1, 'message': 'Регистрация завершена.', 'profile': profile})
                 else:
+                    connected_referrals = UserReferrals.objects.filter(referral=user).values('user__phone')
                     profile = {'phone': user.phone, 'user_referral_code': user.user_referral_code,
-                               'referral_code': user.referral_code}
+                               'referral_code': user.referral_code, 'connected_referrals': connected_referrals}
                     return Response({'status': 1, 'message': 'Добрый день!', 'profile': profile})
             else:
                 return Response({'status': 0, 'message': 'Не правильный смс код.'})
@@ -100,6 +101,8 @@ class EnterReferralCode(APIView):
                 return Response({'status': 0,
                                  'error': 'Ваш телефон не найден. Зарегерстрируйтесь или авторизуйтесь снова.'})
             else:
+                if user.referral_code:
+                    return Response({'status': 0, 'message': 'У Вас уже активирован реферальный код.'})
                 try:
                     referral = User.objects.get(user_referral_code=request.POST['referral_code'])
                 except User.DoesNotExist:
