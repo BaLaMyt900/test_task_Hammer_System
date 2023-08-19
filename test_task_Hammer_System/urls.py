@@ -1,11 +1,11 @@
 from django.contrib import admin
-from django.urls import path
-from main.views import index, Registration, Profile
+from django.urls import path, include
+from api.views import StartPage, EnterReferralCode
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
-    path('registration/', Registration.as_view(), name='registration'),
-    path('profile/', Profile.as_view())
+    path('api/', include('rest_framework.urls')),
+    path('api/', StartPage.as_view()),
+    path('api/add_referral/', EnterReferralCode.as_view())
 ]
