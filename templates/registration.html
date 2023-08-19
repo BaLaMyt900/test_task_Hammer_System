@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Регистрация</title>
+</head>
+<body>
+    <h3>Регистрация</h3>
+    <form action="{% url 'registration' %}" method="post">{% csrf_token %}
+        <p>
+            <input id="id_username" type="text" name="username">
+            <label for="id_username">Логин</label>
+        </p>
+        <p>
+            <input type="password" name="password" id="id_password">
+            <label for="id_password">Пароль</label>
+        </p>
+        <input type="hidden" name="phone" value="{{ phone }}">
+        <p>
+            <button type="submit">Регистрация</button>
+        </p>
+    </form>
+{{ form.as_p }}
+</body>
+</html>

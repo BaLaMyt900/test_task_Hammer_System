@@ -13,6 +13,11 @@
         <label for="phone_id">Номер телефона</label>
         <input id="phone_id" name="phone" {% if phone %} value="{{ phone }}" {% endif %} placeholder="7 *** *** ** **" type="tel">
         <button type="submit">Вход\Регистрация</button>
+        <p>
+            <input id="id_sms_code" type="text" name="sms-code">
+            <label for="id_sms_code">Смс код подверждения</label>
+            <button type="button">Отправить код</button>
+        </p>
         {% if error %}
             <h4 style="color: #970b23">{{ error }}</h4>
         {% endif %}

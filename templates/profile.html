@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Профиль</title>
+</head>
+<body>
+    <p>{{ object.username }} логин</p>
+    <p>{{ object.password }} пароль</p>
+    <p>{{ object.phone }} телефон</p>
+    <p>{{ object.user_referral_code }} Ваш реферальный код</p>
+    <p>
+    <form method="post" action="">
+        <input id="id_referral_code" name="referral_code" {% if user.refferal_code %} placeholder="{{ user.referral_code }}" readonly {% endif %} type="text">
+        <label for="id_referral_code">Реферальный код</label>
+        <button type="button">Применить</button>
+    </form>
+    </p>
+</body>
+</html>
