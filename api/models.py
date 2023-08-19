@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class User(AbstractUser):
+class User(models.Model):
     """ Модель пользователя согласно тех. заданию"""
     phone = models.IntegerField(unique=True, null=True)
     user_referral_code = models.CharField(unique=True, max_length=6)

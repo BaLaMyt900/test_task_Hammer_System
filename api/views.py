@@ -14,12 +14,7 @@ def _generatator(type: int) -> str:
         code = ''.join(random.sample(letters_and_digits, 6))
         """ Проверка на уникальность """
         try:
-            if type == 1:
-                User.objects.get(user_referral_code=code)
-            elif type == 2:
-                User.objects.get(username=code)
-            elif type == 3:
-                User.objects.get(password=code)
+            User.objects.get(user_referral_code=code)
         except User.DoesNotExist:
             return code
 
@@ -42,6 +37,7 @@ def _send_sms(number: int) -> bool:
 
 class StartPage(APIView):
     """ Стартовая страница """
+
     def get(self, request: Request) -> Response:
         if 'phone' in request.session:
             try:
@@ -76,8 +72,7 @@ class StartPage(APIView):
                 try:
                     user = User.objects.get(phone=request.session['phone'])
                 except User.DoesNotExist:
-                    user = User.objects.create(username=_generatator(2), password=_generatator(3),
-                                               phone=request.session['phone'], user_referral_code=_generatator(1))
+                    user = User.objects.create(phone=request.session['phone'], user_referral_code=_generatator(1))
                     profile = {'phone': user.phone, 'user_referral_code': user.user_referral_code}
                     return Response({'status': 1, 'message': 'Регистрация завершена.', 'profile': profile})
                 else:
@@ -93,6 +88,7 @@ class StartPage(APIView):
 
 class EnterReferralCode(APIView):
     """ Логика введения чужого реферального кода. """
+
     def post(self, request: Request):
         if 'referral_code' in request.POST and 'phone' in request.session:
             try:
